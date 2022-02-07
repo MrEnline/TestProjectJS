@@ -1,5 +1,6 @@
 
-function validParentheses(parens) {
+//мой вариант
+function _validParentheses(parens) {
     const pattern = "()";
     let _parens = parens;
     if (parens === "" || parens === "()")
@@ -11,6 +12,18 @@ function validParentheses(parens) {
         if (_parens.length === 0)
             return true;      
     };
+  }
+
+  //чужой вариант - более быстрый
+  function validParentheses(parens){
+    var n = 0;
+    for (var i = 0; i < parens.length; i++) {
+      if (parens[i] == '(') n++;
+      if (parens[i] == ')') n--;
+      if (n < 0) return false;
+    }
+    
+    return n == 0;
   }
 
   console.log(validParentheses("())("));
