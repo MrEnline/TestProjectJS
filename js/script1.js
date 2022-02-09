@@ -45,17 +45,12 @@ window.addEventListener('DOMContentLoaded', () => {
     }
     
     //Анаграммы - на входе массив слов ['лом', 'мол', 'зов', 'воз'] на выходе [['лом', 'мол'],['зов', 'воз']]
-
+    
 
     //Скобки
     '[()]' = true
     '[(])' = false
-    const inputText = prompt("Введите квадратные скобки, а внтутри круглые");
-    validText = '[()]';
-    if (inputText === validText)
-        alert(true);
-    else
-        alert(false);
+    
 
 
  
