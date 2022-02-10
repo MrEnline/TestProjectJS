@@ -1,7 +1,7 @@
 window.addEventListener('DOMContentLoaded', () => {
 
     //Задание AAABBBCCD => A3B3C2D
-    const inputText = prompt("Введите набор символов");
+    let inputText = prompt("Введите набор символов");
 
     if (inputText.length === 1) {
         console.log(inputText);
@@ -23,7 +23,7 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     //Проверить фразу на палиндром
-    const inputText = prompt("Введите фразу");
+    inputText = prompt("Введите фразу");
     let result = false;  
     if (inputText.length < 3) {
         alert('Данная фраза не является палиндромом');
@@ -48,8 +48,8 @@ window.addEventListener('DOMContentLoaded', () => {
     
 
     //Скобки
-    '[()]' = true
-    '[(])' = false
+    //'[()]' = true
+    //'[(])' = false
     
 
 
