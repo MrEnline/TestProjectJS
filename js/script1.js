@@ -70,7 +70,7 @@ window.addEventListener('DOMContentLoaded', () => {
     function sortAnagrams(arr) {
         // сгруппируем анаграммы в хеш-таблице
         const mapWords = arr.reduce((acc, str) => {
-          const key = str.split('').sort().join('');
+          const key = str.split('').sort().join('');//разбиваем слово на символы, сортируем и собираем в слово - ключ
           if (acc[key]) {
               acc[key].push(str);
           } else {
@@ -78,17 +78,49 @@ window.addEventListener('DOMContentLoaded', () => {
           }
           return acc;
         }, {});
+        return Object.values(mapWords);
         // приводим хеш-таблицу обратно к массиву
         // return Object.keys(map).reduce((acc, key) => {
         //   return acc.concat(map[key]);
         // }, []);
-      }
+    }
 
-      const resultArr = sortAnagrams(words);
-      console.log(resultArr);
+    const resultArr = sortAnagrams(words);
+    console.log(resultArr);
 
-    //Скобки
+    // 03. Купюры
+    //     На входе сумма и необходимо разменять на купюры. 
+    //     Усложнение: количество купюр ограниченно. 
+
+    
+
+    //06. Скобки
     // '[()]' = true
     // '[(])' = false
+    const str = "[]()";
+    function isCorrectHook(str) {
+        let stack = [];
+        let ch = "";
+        let result = true;
+        for(let i=0; i < str.length; i++) {
+            if (str[i] === "(" || str[i] === "[") {
+                stack.push(str[i]);
+            } else {
+                ch = stack.pop();
+                if (str[i] === ")") {
+                    if (ch !== "(") {
+                        return false;
+                    }
+                }
+                if (str[i] === "]") {
+                    if (ch !== "[") {
+                        return false;
+                    }
+                }
+            }
+        } 
+        return result;
+    }
+    console.log(isCorrectHook(str));
 
 })
