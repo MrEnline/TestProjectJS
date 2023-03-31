@@ -206,8 +206,8 @@ function getNumberRepeatSymbols2(str) {
         } else {
             if (count !== 1) {
                 arr[i] = arr[i] + count;
+                count = 1;
             }
-            count = 1;
         }
     }
     return arr.join('');
@@ -218,19 +218,38 @@ console.log(getNumberRepeatSymbols2(str));
 //'[()]' = true
 //'[(])' = false
 
-str = '[[(((()))])]';
+//str = '[[([])]]';
+str = '[[][]()[]]';
+//str = '(())((()())())';
+//str = '[(])';
+//str = '[()]';
+
+//const symbols = ['[]', '()'];
+
+const left = ["[", "("];
+const right = ["]", ")"]
+function checkString1(str) {
+    if (str.length % 2 > 0) return false;
+    let newStr = "";
+    for(let i = 1; i < str.length; i++) {
+        if (str[i - 1])
+    }
+    return newStr.length === 0;
+}
+
+console.log(checkString1(str));
+
 
 function checkString(str) {
-    const arrSymbols = str.split('');
-    if (arrSymbols.length % 2 > 0) return false;
-
-    for (let i = arrSymbols.length / 2 - 1; i >= 0; i--) {
-        const left = arrSymbols[i];
-        const right = arrSymbols[arrSymbols.length - 1 - i];
-        if (!(left + right == '[]' || left + right == '()')) return false;
+    if (str.length % 2 > 0) return false;
+    let currStr = str;
+    let newStr = '';
+    while (true) {
+        newStr = currStr.replaceAll('[]', '').replaceAll('()', '');
+        if (currStr === newStr || newStr === '') break;
+        currStr = newStr;
     }
-
-    return true;
+    return newStr.length === 0;
 }
 
 console.log(checkString(str));
