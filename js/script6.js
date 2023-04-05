@@ -219,26 +219,15 @@ console.log(getNumberRepeatSymbols2(str));
 //'[(])' = false
 
 //str = '[[([])]]';
-str = '[[][]()[]]';
+//str = '[[([]]]';
+//str = '[[([]))(]]';
+//str = '[[][]()[]]';
 //str = '(())((()())())';
-//str = '[(])';
+str = '[(])';
 //str = '[()]';
+//str = '(([]';
 
 //const symbols = ['[]', '()'];
-
-const left = ["[", "("];
-const right = ["]", ")"]
-function checkString1(str) {
-    if (str.length % 2 > 0) return false;
-    let newStr = "";
-    for(let i = 1; i < str.length; i++) {
-        if (str[i - 1])
-    }
-    return newStr.length === 0;
-}
-
-console.log(checkString1(str));
-
 
 function checkString(str) {
     if (str.length % 2 > 0) return false;
@@ -253,3 +242,99 @@ function checkString(str) {
 }
 
 console.log(checkString(str));
+
+const newObj = {
+    '[': ']',
+    '(': ')',
+};
+
+function checkString1(str) {
+    if (str.length % 2 > 0) return false;
+    const arrSymbols = [];
+    for (let i = 0; i < str.length; i++) {
+        if (str[i] === '[' || str[i] === '(') {
+            arrSymbols.push(str[i]);
+            continue;
+        }
+        switch (str[i]) {
+            case ')':
+                if (arrSymbols.pop() === '(') break;
+                return false;
+            case ']':
+                if (arrSymbols.pop() === '[') break;
+                return false;
+        }
+    }
+    return true;
+}
+
+console.log(checkString1(str));
+
+const objRightSymbol = {
+    ']': '[',
+    ')': '(',
+};
+const objLeftSymbol = {
+    '[': true,
+    '(': true,
+};
+
+function checkString2(str) {
+    if (str.length % 2 > 0) return false;
+    const arrSymbols = [];
+    for (let i = 0; i < str.length; i++) {
+        if (objLeftSymbol[str[i]]) {
+            arrSymbols.push(str[i]);
+            continue;
+        }
+        if (objRightSymbol[str[i]] !== arrSymbols.pop()) return false;
+    }
+    return arrSymbols.length === 0;
+}
+
+console.log(checkString2(str));
+
+const objSymbols = {
+    '[': ']',
+    '(': ')',
+};
+
+function checkString3(str) {
+    if (str.length % 2 > 0) return false;
+    const arrSymbols = [];
+
+    for (let i = 0; i < str.length; i++) {
+        if (objSymbols[str[i]]) {
+            arrSymbols.push(str[i]);
+            continue;
+        }
+
+        if (str[i] !== objSymbols[arrSymbols.pop()]) {
+            return false;
+        }
+    }
+
+    return arrSymbols.length === 0;
+}
+
+console.log('3-я попытка - ' + checkString3(str));
+
+function checkString4(str) {
+    if (str.length % 2 > 0) return false;
+    const arrSymbols = [];
+
+    for (char of str) {
+        if (objSymbols[char]) {
+            arrSymbols.push(char);
+            continue;
+        }
+
+        if (char !== objSymbols[arrSymbols.pop()]) {
+            return false;
+        }
+    }
+
+    return arrSymbols.length === 0;
+}
+
+console.log('4-я попытка - ' + checkString4(str));
