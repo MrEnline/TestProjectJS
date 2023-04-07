@@ -2,28 +2,43 @@
 //Числа могут повторяться.
 //Усложнение: решить с `log n` сложностью.
 
-const arrSortNumbers = [1, 4, 10, 12, 22, 34, 34, 78, 100];
+const arrSortNumbers = [1, 4, 10, 12, 22, 34, 34, 34, 34, 34, 34, 78, 100];
 const arrNumbers = [10, 34];
+
+function getIndexSimple(arrNumbers) {
+    const objIndex = {};
+    for (let num of arrNumbers) {
+        if (objIndex[num]) {
+            continue;
+        }
+        objIndex[num] = [];
+        arrSortNumbers.reduce((acc, curr, index, arr) => {
+            if (num === curr && (acc !== curr || curr !== arr[index + 1])) {
+                objIndex[num].push(index);
+            }
+            acc = curr;
+            return acc;
+        }, -1);
+        if (objIndex[num].length === 1) {
+            objIndex[num].push();
+        }
+    }
+    return objIndex;
+}
+
+console.log(getIndexSimple(arrNumbers));
 
 function getIndex(arrNumbers) {
     const objIndex = {};
-    for (let i = 0; i < arrNumbers.length; i++) {
-        if (!objIndex[arrNumbers[i]]) {
-            objIndex[arrNumbers[i]] = [];
-        } else {
+    for (let num of arrNumbers) {
+        if (objIndex[num]) {
             continue;
         }
-        const index = searchIndex(arrNumbers[i]);
-
-        if (index > -1) {
-            objIndex[arrNumbers[i]].push(index);
-        }
-        if (index !== arrSortNumbers.length - 1 && arrSortNumbers[index + 1] === arrNumbers[i]) {
-            objIndex[arrNumbers[i + 1]].push(index + 1);
-        } else {
-            objIndex[arrNumbers[i]].push(index);
-        }
+        objIndex[num] = [];
+        const index = searchIndex(num);
+        objIndex[num].push(index);
     }
+
     return objIndex;
 }
 
@@ -37,9 +52,9 @@ function searchIndex(number) {
         if (arrSortNumbers[middleIndex] === number) {
             return middleIndex;
         } else if (arrSortNumbers[middleIndex] < number) {
-            startIndex = middleIndex + 1;
+            startIndex = middleIndex;
         } else {
-            endIndex = middleIndex - 1;
+            endIndex = middleIndex;
         }
     }
 
@@ -47,5 +62,3 @@ function searchIndex(number) {
 }
 
 console.log(getIndex(arrNumbers));
-
-console.log('test');
