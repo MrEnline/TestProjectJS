@@ -28,37 +28,42 @@ function getIndexSimple(arrNumbers) {
 
 console.log(getIndexSimple(arrNumbers));
 
-function getIndex(arrNumbers) {
-    const objIndex = {};
-    for (let num of arrNumbers) {
-        if (objIndex[num]) {
-            continue;
-        }
-        objIndex[num] = [];
-        const index = searchIndex(num);
-        objIndex[num].push(index);
-    }
-
-    return objIndex;
-}
-
-function searchIndex(number) {
-    let startIndex = 0;
+function searchFirstIndex(number) {
+    let startIndex = -1;
     let endIndex = arrSortNumbers.length - 1;
 
-    while (startIndex <= endIndex) {
-        const middleIndex = Math.floor((startIndex + endIndex) / 2);
+    // while (startIndex + 1 < endIndex) {
+    //     const index = startIndex + Math.floor((endIndex - startIndex) / 2);
+    //     if (arrSortNumbers[index] < number) {
+    //         startIndex = index;
+    //     } else {
+    //         endIndex = index;
+    //     }
+    // }
 
-        if (arrSortNumbers[middleIndex] === number) {
-            return middleIndex;
-        } else if (arrSortNumbers[middleIndex] < number) {
-            startIndex = middleIndex;
-        } else {
-            endIndex = middleIndex;
-        }
+    // if (arrSortNumbers[endIndex] === number) {
+    //     return endIndex;
+    // }
+    // return -1;
+    if (number.length < 1) {
+        return;
     }
 
-    return -1;
+    for (let i = 0; i < number.length; i++) {
+        while (startIndex + 1 < endIndex) {
+            const index = startIndex + Math.floor((endIndex - startIndex) / 2);
+            if (arrSortNumbers[index] < number[i]) {
+                startIndex = index;
+            } else {
+                endIndex = index;
+            }
+        }
+
+        if (arrSortNumbers[endIndex] === number[i]) {
+            return endIndex;
+        }
+        return -1;
+    }
 }
 
-console.log(getIndex(arrNumbers));
+console.log(searchFirstIndex(arrNumbers));
