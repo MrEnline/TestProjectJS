@@ -103,3 +103,20 @@ function getLastIndex(number) {
 }
 
 console.log(searchIndexes(arrNumbers));
+
+const sum = 7990;
+const banknotes1 = [5000, 500, 1000, 100, 50, 10];
+
+function getExcangeBancknotes(sum, banknotes1) {
+    let balance = sum;
+    const sortedBanknotes = banknotes1.sort((a, b) => b - a);
+    if (sum % sortedBanknotes[sortedBanknotes.length - 1]) {
+        return undefined;
+    }
+    return sortedBanknotes.reduce((acc, banknote) => {
+        acc[banknote] = Math.floor(balance / banknote);
+        balance = balance - acc[banknote] * banknote;
+        return acc;
+    }, {});
+}
+console.log(getExcangeBancknotes(sum, banknotes1));
