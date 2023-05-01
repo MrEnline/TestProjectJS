@@ -28,7 +28,7 @@ function getSumNumbers(sum) {
     return resultArray;
 }
 
-console.log(getSumNumbers(6));
+console.log(getSumNumbers(8));
 
 const customArray = [2, 7, 11, 15];
 //const customArray = [3, 2, 4];
